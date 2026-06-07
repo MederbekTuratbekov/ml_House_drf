@@ -13,6 +13,7 @@ model = joblib.load(model_path)
 vector_path = os.path.join(settings.BASE_DIR, 'vector.pkl')
 vector = joblib.load(vector_path)
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
@@ -35,6 +36,7 @@ class UserSerializer(serializers.ModelSerializer):
             'refresh': str(refresh),
         }
 
+
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
@@ -56,35 +58,46 @@ class LoginSerializer(serializers.Serializer):
             'refresh': str(refresh),
         }
 
+
 class UserProfileSerializer(serializers.ModelSerializer):
-    created_at = serializers.DateField(format='%d-%m-%Y %H:%M')
+    created_at = serializers.DateField(format='%d-%m-%Y')
     class Meta:
         model = UserProfile
-        fields = ('username', 'email', 'password', 'avatar', 'first_name', 'last_name', 'phone_number', 'role', 'created_at')
+        fields = ('username', 'email', 'password', 'avatar', 'first_name',
+                  'last_name', 'phone_number', 'role', 'created_at')
         extra_kwargs = {'password': {'write_only': True}}
+
 
 class UserPublicInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ('role', 'first_name', 'last_name', 'phone_number')
 
+
 class PropertySerializer(serializers.ModelSerializer):
-    created_at = serializers.DateField(format='%d-%m-%Y %H:%M')
+    created_at = serializers.DateField(format='%d-%m-%Y')
     seller = UserPublicInfoSerializer(read_only=True)
     class Meta:
         model = Property
-        fields = ('title', 'description', 'property_type', 'region', 'city', 'district', 'address', 'area', 'price', 'rooms', 'floor', 'total_floors', 'condition', 'images', 'documents', 'seller', 'created_at')
+        fields = ('title', 'description', 'property_type', 'region', 'city',
+                  'district', 'address', 'area', 'price', 'rooms', 'floor',
+                  'total_floors', 'condition', 'images', 'documents', 'seller', 'created_at')
+
 
 class CreatePropertySerializer(serializers.ModelSerializer):
     class Meta:
         model = Property
-        fields = ('title', 'description', 'property_type', 'region', 'city', 'district', 'address', 'area', 'price', 'rooms', 'floor', 'total_floors', 'condition', 'images', 'documents', 'seller')
+        fields = ('title', 'description', 'property_type', 'region', 'city',
+                  'district', 'address', 'area', 'price', 'rooms', 'floor',
+                  'total_floors', 'condition', 'images', 'documents', 'seller')
+
 
 class ReviewSerializer(serializers.ModelSerializer):
-    created_at = serializers.DateField(format='%d-%m-%Y %H:%M')
+    created_at = serializers.DateField(format='%d-%m-%Y')
     buyer = UserPublicInfoSerializer(read_only=True)
     seller = UserPublicInfoSerializer(read_only=True)
     check_comments = serializers.SerializerMethodField()
+
     class Meta:
         model = Review
         fields = ('buyer', 'seller', 'rating', 'comment', 'created_at', 'check_comments')
@@ -92,10 +105,12 @@ class ReviewSerializer(serializers.ModelSerializer):
     def get_check_comments(self, obj):
         return model.predict(vector.transform([obj.comment]))
 
+
 class CreateReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ('seller', 'rating', 'comment', 'buyer')
+
 
 class HousePredictSerializer(serializers.ModelSerializer):
     class Meta:
