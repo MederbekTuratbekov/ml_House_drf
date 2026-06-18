@@ -1,0 +1,54 @@
+{
+  "GrLivArea": 850,
+  "YearBuilt": 1950,
+  "GarageCars": 1,
+  "TotalBsmtSF": 600,
+  "FullBath": 1,
+  "OverallQual": 4,
+  "Neighborhood": "OldTown"
+}
+
+
+{
+  "GrLivArea": 3200,
+  "YearBuilt": 2022,
+  "GarageCars": 3,
+  "TotalBsmtSF": 1800,
+  "FullBath": 3,
+  "OverallQual": 10,
+  "Neighborhood": "NoRidge"
+}
+
+
+{
+  "GrLivArea": 1600,
+  "YearBuilt": 2005,
+  "GarageCars": 2,
+  "TotalBsmtSF": 850,
+  "FullBath": 2,
+  "OverallQual": 6,
+  "Neighborhood": "Gilbert"
+}
+
+
+
+{
+  "GrLivArea": 2200,
+  "YearBuilt": 1970,
+  "GarageCars": 1,
+  "TotalBsmtSF": 1200,
+  "FullBath": 2,
+  "OverallQual": 3,
+  "Neighborhood": "Edwards"
+}
+
+
+{
+  "GrLivArea": 1100,
+  "YearBuilt": 2018,
+  "GarageCars": 2,
+  "TotalBsmtSF": 550,
+  "FullBath": 1,
+  "OverallQual": 8,
+  "Neighborhood": "Somerst"
+}
