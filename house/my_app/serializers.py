@@ -7,11 +7,11 @@ import joblib
 from django.conf import settings
 
 
-model_path = os.path.join(settings.BASE_DIR, 'model_nb.pkl')
-model = joblib.load(model_path)
+model_path = os.path.join(settings.BASE_DIR, 'lin_model_House.pkl')
+house_model = joblib.load(model_path)
 
-vector_path = os.path.join(settings.BASE_DIR, 'vector.pkl')
-vector = joblib.load(vector_path)
+vector_path = os.path.join(settings.BASE_DIR, 'scaler_House.pkl')
+house_scaler = joblib.load(vector_path)
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -96,15 +96,13 @@ class ReviewSerializer(serializers.ModelSerializer):
     created_at = serializers.DateField(format='%d-%m-%Y')
     buyer = UserPublicInfoSerializer(read_only=True)
     seller = UserPublicInfoSerializer(read_only=True)
-    check_comments = serializers.SerializerMethodField()
 
     class Meta:
         model = Review
-        fields = ('buyer', 'seller', 'rating', 'comment', 'created_at', 'check_comments')
+        fields = ('buyer', 'seller', 'rating', 'comment', 'created_at')
 
     def get_check_comments(self, obj):
-        return model.predict(vector.transform([obj.comment]))
-
+        return model_path.predict(vector_path.transform([obj.comment]))
 
 class CreateReviewSerializer(serializers.ModelSerializer):
     class Meta:

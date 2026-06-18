@@ -15,10 +15,10 @@ import joblib
 from django.conf import settings
 
 
-model_path = os.path.join(settings.BASE_DIR, 'lin_model.pkl')
+model_path = os.path.join(settings.BASE_DIR, 'lin_model_House.pkl')
 model = joblib.load(model_path)
 
-scaler_path = os.path.join(settings.BASE_DIR, 'scaler.pkl')
+scaler_path = os.path.join(settings.BASE_DIR, 'scaler_House.pkl')
 scaler = joblib.load(scaler_path)
 
 
